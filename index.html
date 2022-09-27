@@ -8,7 +8,8 @@
     <link type="text/css" rel="stylesheet" href="main.css">
     <style>
         a {
-            color: #8ff;
+            /* color: #8ff; */
+            color: #000000;
         }
 
         #menu {
@@ -19,19 +20,27 @@
         }
 
         .element {
-            width: 120px;
-            height: 160px;
-            box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.5);
-            border: 1px solid rgba(127, 255, 255, 0.25);
+            width: 75vh;
+            height: 75vh;
+            /* box-shadow: 0px 0px 2px rgba(0, 255, 255, 0.5); */
+            /* border: 1px solid rgba(127, 255, 255, 0.25); */
+            border: 5px solid black;
+            border-radius: 10px;
             font-family: Helvetica, sans-serif;
             text-align: center;
+            word-wrap: break-word;
+            ;
             line-height: normal;
             cursor: default;
+            overflow-y: hidden;
         }
 
         .element:hover {
-            box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75);
-            border: 1px solid rgba(127, 255, 255, 0.75);
+            /* box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75); */
+            box-shadow: 2px rgba(0, 0, 0, 0.678);
+            border: 5px solid rgb(0, 0, 0);
+
+            /* border: 1px solid rgba(127, 255, 255, 0.75); */
         }
 
         .element .number {
@@ -44,13 +53,21 @@
 
         .element .symbol {
             position: absolute;
-            top: 40px;
+            top: 50%;
             left: 0px;
             right: 0px;
+            /* width: -moz-fit-content; */
+            /* width: fit-content; */
+            height: calc(1/4*75vh);
+            width: 75vh;
+            /* Since fonts would be resized automatically, ideally there shouldn't be any overflow */
+            overflow-y: hidden;
+            ;
+            /* TODO: adjustable font size */
             font-size: 60px;
             font-weight: bold;
-            color: rgba(255, 255, 255, 0.75);
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.95);
+            /* color: rgba(255, 255, 255, 0.75); */
+            /* text-shadow: 0 0 10px rgba(47, 80, 80, 0.95); */
         }
 
         .element .details {
@@ -58,13 +75,14 @@
             bottom: 15px;
             left: 0px;
             right: 0px;
-            font-size: 12px;
-            color: rgba(127, 255, 255, 0.75);
+            font-size: 40px;
+            /* color: rgba(127, 255, 255, 0.75); */
         }
 
         button {
-            color: rgba(127, 255, 255, 0.75);
-            background: transparent;
+            /* color: rgba(127, 255, 255, 0.75); */
+
+            /* background: transparent; */
             outline: 1px solid rgba(127, 255, 255, 0.75);
             border: 0px;
             padding: 5px 10px;
@@ -94,6 +112,14 @@
         <button id="grid">GRID</button>
     </div>
 
+    <!-- SVG for external link -->
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24"
+        style=" fill:#000000;">
+        <path
+            d="M 19.980469 2.9902344 A 1.0001 1.0001 0 0 0 19.869141 3 L 15 3 A 1.0001 1.0001 0 1 0 15 5 L 17.585938 5 L 8.2929688 14.292969 A 1.0001 1.0001 0 1 0 9.7070312 15.707031 L 19 6.4140625 L 19 9 A 1.0001 1.0001 0 1 0 21 9 L 21 4.1269531 A 1.0001 1.0001 0 0 0 19.980469 2.9902344 z M 5 3 C 3.9069372 3 3 3.9069372 3 5 L 3 19 C 3 20.093063 3.9069372 21 5 21 L 19 21 C 20.093063 21 21 20.093063 21 19 L 21 13 A 1.0001 1.0001 0 1 0 19 13 L 19 19 L 5 19 L 5 5 L 11 5 A 1.0001 1.0001 0 1 0 11 3 L 5 3 z">
+        </path>
+    </svg> -->
+
     <!-- Import maps polyfill -->
     <!-- Remove this when import maps will be widely supported -->
     <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
@@ -114,29 +140,36 @@
         import { TrackballControls } from 'https://unpkg.com/three@latest/examples/jsm/controls/TrackballControls.js';
         import { CSS3DRenderer, CSS3DObject } from 'https://unpkg.com/three@latest/examples/jsm/renderers/CSS3DRenderer.js';
 
-        // for
 
-        var table = [
-            'Fl', 'Flerovium', '(289)', 14, 7,
-            'Mc', 'Moscovium', '(290)', 15, 7,
-            'Lv', 'Livermorium', '(293)', 16, 7,
-            'Ts', 'Tennessine', '(294)', 17, 7,
-            'Og', 'Oganesson', '(294)', 18, 7
+        // var symbol = document.querySelector('.symbol');
+        // var symbolContainer = document.querySelector('.element');
 
-        ];
+        const resizeToFit = (symbol, symbolContainer) => {
+            let fontSize = window.getComputedStyle(symbol).fontSize;
+            symbol.style.fontSize = (parseFloat(fontSize) - 1) + 'px';
 
-        await fetch('https://api.github.com/users/amit0617/repos')
+            if (symbol.clientHeight >= symbolContainer.clientHeight) {
+                resizeToFit(symbol, symbolContainer);
+            }
+        }
+
+        var table = [];
+
+        // await fetch('https://api.github.com/users/amit0617/repos')
+        await fetch('/repos.json')
             .then(data => data.json())
             .then(response => {
                 for (let index = 0; index < 30; index++) {
                     let repo = response[index];
                     table.push(repo.name);
-                    table.push(repo.description);
-                    table.push(repo.visibility);
-                    table.push(repo.size);
-                    table.push(repo.id);
+                    table.push(repo.html_url);
+                    table.push(repo.description == null ? null : repo.description.length >= 50 ? repo.description.substr(0, 50) : repo.description);
                 }
             })
+
+        // await fetch('github.json')
+        // .then(data => data.json())
+        // .then(item => table.push(item));
 
         console.log(table);
 
@@ -152,31 +185,35 @@
         function init() {
 
             camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
-            camera.position.z = 3000;
+            camera.position.z = 300;
 
             scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xcccccc);
+            scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
 
             // table
 
-            for (let i = 0; i < table.length; i += 5) {
+            for (let i = 0; i < table.length; i += 3) {
 
                 const element = document.createElement('div');
                 element.className = 'element';
-                element.style.backgroundColor = 'rgba(0,127,127,' + (Math.random() * 0.5 + 0.25) + ')';
+                element.style.backgroundColor = 'rgba(255,255,255,' + (Math.random() * 0.5 + 0.25) + ')';
 
-                const number = document.createElement('div');
-                number.className = 'number';
-                number.textContent = (i / 5) + 1;
-                element.appendChild(number);
+                // const number = document.createElement('div');
+                // number.className = 'number';
+                // number.textContent = (i / 5) + 1;
+                // element.appendChild(number);
 
-                const symbol = document.createElement('div');
+                const symbol = document.createElement('a');
                 symbol.className = 'symbol';
                 symbol.textContent = table[i];
+                resizeToFit(symbol, element);
+                symbol.href = table[i + 1];
                 element.appendChild(symbol);
 
                 const details = document.createElement('div');
                 details.className = 'details';
-                details.innerHTML = table[i + 1] + '<br>' + table[i + 2];
+                details.innerHTML = table[i + 2];
                 element.appendChild(details);
 
                 const objectCSS = new CSS3DObject(element);
@@ -187,11 +224,11 @@
 
                 objects.push(objectCSS);
 
-                //
+                // table - customise below to change the positions
 
                 const object = new THREE.Object3D();
-                object.position.x = (table[i + 3] * 140) - 1330;
-                object.position.y = - (table[i + 4] * 180) + 990;
+                object.position.x = (table[i] * 140) - 130;
+                object.position.y = - (table[i + 3] * 180) + 990;
 
                 targets.table.push(object);
 
@@ -208,7 +245,7 @@
 
                 const object = new THREE.Object3D();
 
-                object.position.setFromSphericalCoords(800, phi, theta);
+                object.position.setFromSphericalCoords(1200, phi, theta);
 
                 vector.copy(object.position).multiplyScalar(2);
 
@@ -245,8 +282,8 @@
 
                 const object = new THREE.Object3D();
 
-                object.position.x = ((i % 5) * 400) - 800;
-                object.position.y = (- (Math.floor(i / 5) % 5) * 400) + 800;
+                object.position.x = ((i % 5) * 500) - 1000;
+                object.position.y = (- (Math.floor(i / 5) % 5) * 500) + 800;
                 object.position.z = (Math.floor(i / 25)) * 1000 - 2000;
 
                 targets.grid.push(object);
