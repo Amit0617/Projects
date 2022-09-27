@@ -207,7 +207,7 @@
                 const symbol = document.createElement('a');
                 symbol.className = 'symbol';
                 symbol.textContent = table[i];
-                resizeToFit(symbol, element);
+                // resizeToFit(symbol, element);
                 symbol.href = table[i + 1];
                 element.appendChild(symbol);
 
@@ -245,7 +245,7 @@
 
                 const object = new THREE.Object3D();
 
-                object.position.setFromSphericalCoords(1200, phi, theta);
+                object.position.setFromSphericalCoords(900, phi, theta);
 
                 vector.copy(object.position).multiplyScalar(2);
 
@@ -259,12 +259,12 @@
 
             for (let i = 0, l = objects.length; i < l; i++) {
 
-                const theta = i * 0.175 + Math.PI;
-                const y = - (i * 8) + 450;
+                const theta = i * 0.4 + Math.PI; // for making cards overlap each other adjust 0.3 to lower
+                const y = - (i * 50) + 900; // height of spiral
 
                 const object = new THREE.Object3D();
 
-                object.position.setFromCylindricalCoords(900, theta, y);
+                object.position.setFromCylindricalCoords(1100, theta, y); // radius
 
                 vector.x = object.position.x * 2;
                 vector.y = object.position.y;
