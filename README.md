@@ -15,6 +15,6 @@ My Projects, Your projects, Everyone else's Projects. A projects showcase for pr
 #### Intermission steps
 - [ ] Add an svg on hover for external link.
 - [ ] Try a smoother foggy substr for description.
-- [ ] Readjust font size according to the length of string.
+~Readjust font size according to the length of string.~ Readjusting causes large no. of recursions, call for only few large ones (maybe check size or no. of characters to limit that.)
 - [ ] Add layers for sliders with adjusting options- like radius of sphere, distance between cards, their positioning, various colors.
 - [ ] Offer light mode and dark mode options.
