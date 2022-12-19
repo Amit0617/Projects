@@ -1,16 +1,65 @@
+:root {
+	--base03: #002b36;
+	--base02: #073642;
+	--base01: #586e75;
+	--base00: #657b83;
+	--base0: #839496;
+	--base1: #93a1a1;
+	--base2: #eee8d5;
+	--base3: #fdf6e3;
+	--yellow: #b58900;
+	--orange: #cb4b16;
+	--red: #dc322f;
+	--magenta: #d33682;
+	--violet: #6c71c4;
+	--blue: #268bd2;
+	--cyan: #2aa198;
+	--green: #859900;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--emphasized-text: var(--base00);
+		--comments: var(--base1);
+		--background-color: var(--base3);
+		--background-highlights: var(--base2);
+		--shadow: var(--blue);
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--emphasized-text: var(--base0);
+		--comments: var(--base01);
+		--background-color: var(--base03);
+		--background-highlights: var(--base02);
+		--shadow: var(--yellow);
+	}
+}
 
 body {
 	margin: 0;
-	/* background-color: #000; */
-	/* color: #fff; */
+	background-color: var(--background-color);
+	/* background: radial-gradient(ellipse at center, rgb(92, 94, 97) 0%, rgba(0,0,0,1) 100%); */
 	font-family: Monospace;
-	font-size: 13px;
-	line-height: 24px;
-	overscroll-behavior: none;
+	overscroll-behavior: block;
+}
+
+.repo_name {
+	color: var(--emphasized-text);
+
+}
+
+.description {
+	color: var(--comments);
+}
+
+.repo_card:hover {
+	background-color: var(--background-highlights);
+	box-shadow: 2px 2px 2px 2px var(--shadow);
 }
 
 a {
-	/* color: #ff0; */
 	text-decoration: none;
 }
 
@@ -22,7 +71,7 @@ button {
 	cursor: pointer;
 	text-transform: uppercase;
 }
-
+/* 
 #info {
 	position: absolute;
 	top: 0px;
@@ -35,19 +84,24 @@ button {
 	-ms-user-select: none;
 	user-select: none;
 	pointer-events: none;
-	z-index: 1; /* TODO Solve this in HTML */
-}
+	z-index: 1;
+	/* TODO Solve this in HTML */
+/*} */
 
-a, button, input, select {
+a,
+button,
+input,
+select {
 	pointer-events: auto;
 }
 
-.lil-gui {
-	z-index: 2 !important; /* TODO Solve this in HTML */
-}
+/* .lil-gui { */
+	/* z-index: 2 !important; */
+	/* TODO Solve this in HTML */
+/* } */
 
-@media all and ( max-width: 640px ) {
-	.lil-gui.root { 
+/* @media all and (max-width: 640px) {
+	.lil-gui.root {
 		right: auto;
 		top: auto;
 		max-height: 50%;
@@ -55,7 +109,7 @@ a, button, input, select {
 		bottom: 0;
 		left: 0;
 	}
-}
+} */
 
 #overlay {
 	position: absolute;
@@ -69,24 +123,134 @@ a, button, input, select {
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	background: rgba(0,0,0,0.7);
+	background: rgba(0, 0, 0, 0.7);
 }
 
-	#overlay button {
-		background: transparent;
-		border: 0;
-		border: 1px solid rgb(255, 255, 255);
-		border-radius: 4px;
-		color: #ffffff;
-		padding: 12px 18px;
-		text-transform: uppercase;
-		cursor: pointer;
-	}
+#overlay button {
+	background: transparent;
+	border: 0;
+	border: 1px solid rgb(255, 255, 255);
+	border-radius: 4px;
+	color: #ffffff;
+	padding: 12px 18px;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+/* 
 
-#notSupported {
-	width: 50%;
-	margin: auto;
-	background-color: #f00;
-	margin-top: 20px;
-	padding: 10px;
+a {
+	/* color: #8ff; */
+	/* color: #000000; */
+/*} */
+
+#menu {
+	position: absolute;
+	bottom: 20px;
+	width: 100%;
+	text-align: center;
+}
+
+.repo_card {
+	min-width: 30vh;
+	/* width: -moz-fit-content; */
+	/* width: fit-content; */
+	min-height: 30vh;
+	box-sizing: content-box;
+	/* box-shadow: 0px 0px 2px rgba(0, 255, 255, 0.5); */
+	/* border: 1px solid rgba(127, 255, 255, 0.25); */
+	word-wrap: break-word;
+	border: 1px solid black;
+	border-radius: 10px;
+	font-family: Helvetica, sans-serif;
+	text-align: center;
+	background-color: #fff;
+	line-height: normal;
+	cursor: default;
+}
+
+.repo_card .number {
+	position: absolute;
+	height: 40vh;
+	width: 94%;
+	border: 2px solid black;
+	border-radius: 10px;
+	top: 3%;
+	/* margin-left: auto; */
+	right: 3%;
+	font-size: 12px;
+	color: rgba(127, 255, 255, 0.75);
+}
+
+.repo_card .repo_name {
+	position: absolute;
+	top: 5%;
+	left: 0px;
+	right: 0px;
+	/* width: -moz-fit-content; */
+	/* width: fit-content; */
+	width: 30vh;
+	/* Since fonts would be resized automatically, ideally there shouldn't be any overflow */
+	/* overflow-y: hidden; */
+	overflow-y: scroll;
+	/* TODO: adjustable font size */
+	font-size: 5vh;
+	font-weight: bold;
+	/* color: rgba(255, 255, 255, 0.75); */
+	/* text-shadow: 0 0 10px rgba(47, 80, 80, 0.95); */
+}
+
+.repo_card .description {
+	position: absolute;
+	/* clear: both; */
+	bottom: 15px;
+	left: 0px;
+	right: 0px;
+	font-size: 2vh;
+	/* color: rgba(127, 255, 255, 0.75); */
+}
+
+.language {
+	position: absolute;
+	justify-content: center;
+	bottom: 40%;
+	margin-left: 50%;
+	margin-left: 50%;
+}
+
+.homepage {
+	position: absolute;
+	bottom: 20%;
+}
+/* Make centerdiv of fixed size inside repo_card in the center */
+.centerdiv{
+	position: absolute;
+	font-size: 2vh;
+	top: 50%;
+	/* align-items: center; */
+	display:flex;
+	text-align: center;
+	align-content: center;
+	/* left: 30%; */
+	/* max-width: -moz-fit-content;; */
+	/* max-width: fit-content; */
+	/* display: flex; */
+}
+
+button {
+	/* color: rgba(127, 255, 255, 0.75); */
+
+	/* background: transparent; */
+	outline: 1px solid rgba(127, 255, 255, 0.75);
+	border: 0px;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: rgba(0, 255, 255, 0.5);
+}
+
+button:active {
+	color: #000000;
+	background-color: rgba(0, 255, 255, 0.75);
 }

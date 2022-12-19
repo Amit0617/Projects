@@ -2,108 +2,18 @@
 <html lang="en">
 
 <head>
-    <title>three.js css3d - periodic table</title>
+    <title>Github projects</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <link type="text/css" rel="stylesheet" href="main.css">
-    <style>
-        a {
-            /* color: #8ff; */
-            color: #000000;
-        }
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
 
-        #menu {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .element {
-            width: 75vh;
-            height: 75vh;
-            /* box-shadow: 0px 0px 2px rgba(0, 255, 255, 0.5); */
-            /* border: 1px solid rgba(127, 255, 255, 0.25); */
-            border: 5px solid black;
-            border-radius: 10px;
-            font-family: Helvetica, sans-serif;
-            text-align: center;
-            word-wrap: break-word;
-            ;
-            line-height: normal;
-            cursor: default;
-            overflow-y: hidden;
-        }
-
-        .element:hover {
-            /* box-shadow: 0px 0px 12px rgba(0, 255, 255, 0.75); */
-            box-shadow: 2px rgba(0, 0, 0, 0.678);
-            border: 5px solid rgb(0, 0, 0);
-
-            /* border: 1px solid rgba(127, 255, 255, 0.75); */
-        }
-
-        .element .number {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 12px;
-            color: rgba(127, 255, 255, 0.75);
-        }
-
-        .element .symbol {
-            position: absolute;
-            top: 50%;
-            left: 0px;
-            right: 0px;
-            /* width: -moz-fit-content; */
-            /* width: fit-content; */
-            height: calc(1/4*75vh);
-            width: 75vh;
-            /* Since fonts would be resized automatically, ideally there shouldn't be any overflow */
-            overflow-y: hidden;
-            ;
-            /* TODO: adjustable font size */
-            font-size: 60px;
-            font-weight: bold;
-            /* color: rgba(255, 255, 255, 0.75); */
-            /* text-shadow: 0 0 10px rgba(47, 80, 80, 0.95); */
-        }
-
-        .element .details {
-            position: absolute;
-            bottom: 15px;
-            left: 0px;
-            right: 0px;
-            font-size: 40px;
-            /* color: rgba(127, 255, 255, 0.75); */
-        }
-
-        button {
-            /* color: rgba(127, 255, 255, 0.75); */
-
-            /* background: transparent; */
-            outline: 1px solid rgba(127, 255, 255, 0.75);
-            border: 0px;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: rgba(0, 255, 255, 0.5);
-        }
-
-        button:active {
-            color: #000000;
-            background-color: rgba(0, 255, 255, 0.75);
-        }
-    </style>
 </head>
 
 <body>
 
-    <div id="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> css3d - periodic table.
-    </div>
+    <!-- <div id="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> css3d - periodic table. -->
+    <!-- </div> -->
     <div id="container"></div>
     <div id="menu">
         <button id="table">TABLE</button>
@@ -141,30 +51,93 @@
         import { CSS3DRenderer, CSS3DObject } from 'https://unpkg.com/three@latest/examples/jsm/renderers/CSS3DRenderer.js';
 
 
-        // var symbol = document.querySelector('.symbol');
-        // var symbolContainer = document.querySelector('.element');
+        // var repo_name = document.querySelector('.repo_name');
+        // var repo_nameContainer = document.querySelector('.repo_card');
 
-        const resizeToFit = (symbol, symbolContainer) => {
-            let fontSize = window.getComputedStyle(symbol).fontSize;
-            symbol.style.fontSize = (parseFloat(fontSize) - 1) + 'px';
+        // var devicon = '<i class="devicon-${icon}-plain colored"></i> ${icon}'
+        const devicons = {
+            Git: '<i class="devicon-git-plain" style="color: #555"></i>',
+            Github: '<i class="devicon-github-plain" style="color: #1688f0"></i>',
+            Chrome: '<i class="devicon-chrome-plain" style="color: #1688f0"></i>',
+            Assembly: '<i class="devicon-labview-plain colored"></i> Assembly',
+            'C#': '<i class="devicon-csharp-plain colored"></i> C#',
+            'C++': '<i class="devicon-cplusplus-plain colored"></i> C++',
+            C: '<i class="devicon-c-plain colored"></i> C',
+            Clojure: '<i class="devicon-clojure-plain colored"></i> C',
+            CoffeeScript:
+                '<i class="devicon-coffeescript-plain colored"></i> CoffeeScript',
+            Crystal: '<i class="devicon-crystal-plain colored"></i> Crystal',
+            CSS: '<i class="devicon-css3-plain colored"></i> CSS',
+            Dart: '<i class="devicon-dart-plain colored"></i> Dart',
+            Dockerfile: '<i class="devicon-docker-plain colored"></i> Docker',
+            Elixir: '<i class="devicon-elixir-plain colored"></i> Elixir',
+            Elm: '<i class="devicon-elm-plain colored"></i> Elm',
+            Erlang: '<i class="devicon-erlang-plain colored"></i> Erlang',
+            'F#': '<i class="devicon-fsharp-plain colored"></i> F#',
+            Go: '<i class="devicon-go-plain colored"></i> Go',
+            Groovy: '<i class="devicon-groovy-plain colored"></i> Groovy',
+            HTML: '<i class="devicon-html5-plain colored"></i> HTML',
+            Haskell: '<i class="devicon-haskell-plain colored"></i> Haskell',
+            Java: '<i class="devicon-java-plain colored" style="color: #ffca2c"></i> Java',
+            JavaScript: '<i class="devicon-javascript-plain colored"></i> JavaScript',
+            Julia: '<i class="devicon-julia-plain colored"></i> Julia',
+            'Jupyter Notebook': '<i class="devicon-jupyter-plain colored"></i> Jupyter',
+            Kotlin: '<i class="devicon-kotlin-plain colored" style="color: #796bdc"></i> Kotlin',
+            Latex: '<i class="devicon-latex-plain colored"></i> Latex',
+            Lua: '<i class="devicon-lua-plain-wordmark colored" style="color: #0000d0"></i> Lua',
+            Matlab: '<i class="devicon-matlab-plain colored"></i> Matlab',
+            Nim: '<i class="devicon-nixos-plain colored" style="color: #FFC200"></i> Nim',
+            Nix: '<i class="devicon-nixos-plain colored"></i> Nix',
+            ObjectiveC: '<i class="devicon-objectivec-plain colored"></i> ObjectiveC',
+            OCaml: '<i class="devicon-ocaml-plain colored"></i> OCaml',
+            Perl: '<i class="devicon-perl-plain colored"></i> Perl',
+            PHP: '<i class="devicon-php-plain colored"></i> PHP',
+            PLSQL: '<i class="devicon-sqlite-plain colored"></i> PLSQL',
+            Processing:
+                '<i class="devicon-processing-plain colored" style="color: #0096D8"></i> Processing',
+            Python: '<i class="devicon-python-plain colored" style="color: #3472a6"></i> Python',
+            R: '<i class="devicon-r-plain colored"></i> R',
+            Ruby: '<i class="devicon-ruby-plain colored"></i> Ruby',
+            Rust: '<i class="devicon-rust-plain colored" style="color: #DEA584"></i> Rust',
+            Sass: '<i class="devicon-sass-original colored"></i> Sass',
+            Scala: '<i class="devicon-scala-plain colored"></i> Scala',
+            Shell: '<i class="devicon-bash-plain colored" style="color: #89E051"></i> Shell',
+            Solidity: '<i class="devicon-solidity-plain colored"></i> Solidity',
+            Stylus: '<i class="devicon-stylus-plain colored"></i> Stylus',
+            Svelte: '<i class="devicon-svelte-plain colored"></i> Svelte',
+            Swift: '<i class="devicon-swift-plain colored"></i> Swift',
+            Terraform: '<i class="devicon-terraform-plain colored"></i> Terraform',
+            TypeScript: '<i class="devicon-typescript-plain colored"></i> TypeScript',
+            'Vim Script': '<i class="devicon-vim-plain colored"></i> Vim Script',
+            Vue: '<i class="devicon-vuejs-plain colored"></i> Vue',
+        };
 
-            if (symbol.clientHeight >= symbolContainer.clientHeight) {
-                resizeToFit(symbol, symbolContainer);
+        const resizeToFit = (repo_name, repo_nameContainer) => {
+            let fontSize = window.getComputedStyle(repo_name).fontSize;
+            repo_name.style.fontSize = (parseFloat(fontSize) - 1) + 'px';
+
+            if (repo_name.clientHeight >= repo_nameContainer.clientHeight) {
+                resizeToFit(repo_name, repo_nameContainer);
             }
         }
 
-        var table = [];
+        var table = new Array();
 
-        // await fetch('https://api.github.com/users/amit0617/repos')
-        await fetch('/repos.json')
+        // await fetch('https://api.github.com/users/AMIT0617/repos?&sort=pushed&per_page=100')
+        await fetch('/repos1.json')
             .then(data => data.json())
             .then(response => {
-                for (let index = 0; index < 30; index++) {
+                for (let index = 0; index < response.length; index++) {
                     let repo = response[index];
-                    table.push(repo.name);
-                    table.push(repo.html_url);
-                    table.push(repo.description == null ? null : repo.description.length >= 50 ? repo.description.substr(0, 50) : repo.description);
+                    table.push(repo);
+                    // table.push(repo.html_url);
+                    // table.push(repo.description == null ? null : repo.description.length > 50 ? repo.description.substr(0, 50) + "..." : repo.description);
+                    // table.push(repo.stargazers_count);
+                    // table.push(repo.watchers_count);
+                    // table.push(repo.name)
                 }
+                table.sort((a) => a.stargazers_count);
+                console.log(table);
             })
 
         // await fetch('github.json')
@@ -178,45 +151,91 @@
 
         const objects = [];
         const targets = { table: [], sphere: [], helix: [], grid: [] };
-
+        
         init();
         animate();
 
         function init() {
 
             camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
-            camera.position.z = 300;
+            camera.position.z = 3;
 
             scene = new THREE.Scene();
-            scene.background = new THREE.Color(0xcccccc);
-            scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
+            // scene.background = new THREE.Color(0xcccccc);
+            // scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
+            const gridHelper = new THREE.GridHelper(4000, 10);
+            scene.add(gridHelper);
 
             // table
 
-            for (let i = 0; i < table.length; i += 3) {
+            for (let i = 0; i < table.length; i++) {
 
-                const element = document.createElement('div');
-                element.className = 'element';
-                element.style.backgroundColor = 'rgba(255,255,255,' + (Math.random() * 0.5 + 0.25) + ')';
+                const repo_card = document.createElement('div');
+                repo_card.className = 'repo_card';
+                repo_card.style.backgroundColor = 'rgba(255,255,255,' + (Math.random() * 0.5 + 0.25) + ')';
 
                 // const number = document.createElement('div');
                 // number.className = 'number';
                 // number.textContent = (i / 5) + 1;
-                // element.appendChild(number);
+                // repo_card.appendChild(number);
 
-                const symbol = document.createElement('a');
-                symbol.className = 'symbol';
-                symbol.textContent = table[i];
-                // resizeToFit(symbol, element);
-                symbol.href = table[i + 1];
-                element.appendChild(symbol);
+                const repo_name = document.createElement('a');
+                repo_name.className = 'repo_name';
+                repo_name.textContent = table[i].name;
+                // resizeToFit(repo_name, repo_card);
+                repo_name.href = table[i].html_url;
+                repo_card.appendChild(repo_name);
 
-                const details = document.createElement('div');
-                details.className = 'details';
-                details.innerHTML = table[i + 2];
-                element.appendChild(details);
+                const description = document.createElement('div');
+                description.className = 'description';
+                description.innerText = table[i].description == null ? null : table[i].description.length > 50 ? table[i].description.substr(0, 50) + '...' : table[i].description;
+                repo_card.appendChild(description);
 
-                const objectCSS = new CSS3DObject(element);
+                // const language = document.createElement('i');
+                // const icon = table[i].language;
+                // // let langIcon;
+                // if (icon) { langIcon = icon.toLowerCase(); }
+                // language.className = icon != null ? `devicon-${langIcon}-plain colored devicon-${langIcon[langIcon]}-original` : null;
+                // language.innerText = icon;
+                // repo_card.appendChild(language);
+
+                const centerdiv = document.createElement('div');
+                centerdiv.className = 'centerdiv';
+
+                if (table[i].language) {
+                    const language = document.createElement('p')
+                    // language.className = 'language'
+                    language.innerHTML = devicons[table[i].language];
+                    centerdiv.classList.add('language');
+                    centerdiv.appendChild(language);
+                }
+
+                if (table[i].stargazers_count){
+                    const stars = document.createElement('p');
+                    stars.className = 'stars';
+                    stars.innerText += '⭐' + table[i].stargazers_count;
+                    centerdiv.appendChild(stars);
+                }
+
+                if(table[i].forks_count){
+                    const forks = document.createElement('p')
+                    forks.innerHTML += devicons["Git"] + table[i].forks_count;
+                    centerdiv.appendChild(forks);
+                }
+
+                if (table[i].has_pages) {
+                    const homepage = document.createElement('a');
+                    homepage.href = table[i].homepage;
+                    homepage.innerHTML = devicons["Chrome"] + table[i].name;
+                    // centerdiv.innerHTML += devicons["Chrome"];
+                    // centerdiv.classList.add('homepage')
+                    homepage.className = 'homepage';
+                    centerdiv.appendChild(homepage);
+                }
+
+                repo_card.appendChild(centerdiv);
+
+                const objectCSS = new CSS3DObject(repo_card);
                 objectCSS.position.x = Math.random() * 4000 - 2000;
                 objectCSS.position.y = Math.random() * 4000 - 2000;
                 objectCSS.position.z = Math.random() * 4000 - 2000;
@@ -227,8 +246,8 @@
                 // table - customise below to change the positions
 
                 const object = new THREE.Object3D();
-                object.position.x = (table[i] * 140) - 130;
-                object.position.y = - (table[i + 3] * 180) + 990;
+                object.position.x = (i * 140) - 130;
+                object.position.y = ([i+3] * 180) + 990;
 
                 targets.table.push(object);
 
@@ -238,14 +257,17 @@
 
             const vector = new THREE.Vector3();
 
+
             for (let i = 0, l = objects.length; i < l; i++) {
 
-                const phi = Math.acos(- 1 + (2 * i) / l);
+                // 2 multiplied with i  here decides a spiral height
+                // less than that will need more elements to complete circle
+                const phi = Math.acos(-1 + (2 * i) / l);
                 const theta = Math.sqrt(l * Math.PI) * phi;
 
                 const object = new THREE.Object3D();
 
-                object.position.setFromSphericalCoords(900, phi, theta);
+                object.position.setFromSphericalCoords(500, phi, theta); //500 decides radius for sphere
 
                 vector.copy(object.position).multiplyScalar(2);
 
@@ -259,12 +281,12 @@
 
             for (let i = 0, l = objects.length; i < l; i++) {
 
-                const theta = i * 0.4 + Math.PI; // for making cards overlap each other adjust 0.3 to lower
-                const y = - (i * 50) + 900; // height of spiral
+                const theta = i * 0.25 + Math.PI; // for making cards overlap each other adjust 0.3 to lower
+                const y = - (i * 20) + 900; // height of spiral
 
                 const object = new THREE.Object3D();
 
-                object.position.setFromCylindricalCoords(1100, theta, y); // radius
+                object.position.setFromCylindricalCoords(800, theta, y); // radius
 
                 vector.x = object.position.x * 2;
                 vector.y = object.position.y;
@@ -282,8 +304,12 @@
 
                 const object = new THREE.Object3D();
 
-                object.position.x = ((i % 5) * 500) - 1000;
-                object.position.y = (- (Math.floor(i / 5) % 5) * 500) + 800;
+                // constant after minus for shifting on axis (500)
+                // multiplier (200) for deciding gap between cards
+                // modulo for no. of cards(5) in a row 
+                object.position.x = ((i % 10) * 200) - 500;
+
+                object.position.y = (- (Math.floor(i / 5) % 5) * 200) + 300;
                 object.position.z = (Math.floor(i / 25)) * 1000 - 2000;
 
                 targets.grid.push(object);
@@ -299,15 +325,14 @@
             //
 
             controls = new TrackballControls(camera, renderer.domElement);
-            controls.minDistance = 500;
-            controls.maxDistance = 6000;
+            controls.minDistance = 10;
+            controls.maxDistance = 4000;
             controls.addEventListener('change', render);
 
             const buttonTable = document.getElementById('table');
             buttonTable.addEventListener('click', function () {
 
                 transform(targets.table, 2000);
-
             });
 
             const buttonSphere = document.getElementById('sphere');
@@ -361,7 +386,7 @@
             }
 
             new TWEEN.Tween(this)
-                .to({}, duration * 2)
+                .to({}, duration * 3)
                 .onUpdate(render)
                 .start();
 
@@ -381,6 +406,8 @@
         function animate() {
 
             requestAnimationFrame(animate);
+
+            const vector = new THREE.Vector3();
 
             TWEEN.update();
 
