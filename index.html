@@ -12,11 +12,9 @@
 
 <body>
 
-    <!-- <div id="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> css3d - periodic table. -->
-    <!-- </div> -->
     <div id="container"></div>
     <div id="menu">
-        <button id="table">TABLE</button>
+        <button id="stack">STACK</button>
         <button id="sphere">SPHERE</button>
         <button id="helix">HELIX</button>
         <button id="grid">GRID</button>
@@ -121,7 +119,7 @@
             }
         }
 
-        var table = new Array();
+        var stack = new Array();
 
         //get url of the github page and split it to get username
         var url = window.location.href;
@@ -144,21 +142,21 @@
             .then(data => {
                 for (let index = 0; index < data.length; index++) {
                     let repo = data[index];
-                    table.push(repo);
+                    stack.push(repo);
                 }
-                table.sort((a) => a.stargazers_count);
-                console.log(table);
+                stack.sort((a) => a.stargazers_count);
+                console.log(stack);
             })
             .catch(err => console.log(err));
 
 
-        console.log(table);
+        console.log(stack);
 
         let camera, scene, renderer;
         let controls;
 
         const objects = [];
-        const targets = { table: [], sphere: [], helix: [], grid: [] };
+        const targets = { stack: [], sphere: [], helix: [], grid: [] };
         let mouseX = 0, mouseY = 0;
 
         init();
@@ -173,9 +171,9 @@
             // make background scene consisting matrix of lines in three.js
             scene = new THREE.Scene();
 
-            // table
+            // stack
 
-            for (let i = 0; i < table.length; i++) {
+            for (let i = 0; i < stack.length; i++) {
 
                 const repo_card = document.createElement('div');
                 repo_card.className = 'repo_card';
@@ -183,48 +181,48 @@
 
                 const repo_name = document.createElement('a');
                 repo_name.className = 'repo_name';
-                repo_name.textContent = table[i].name;
+                repo_name.textContent = stack[i].name;
                 // resizeToFit(repo_name, repo_card);
-                repo_name.href = table[i].html_url;
+                repo_name.href = stack[i].html_url;
                 repo_card.appendChild(repo_name);
 
                 const description = document.createElement('div');
                 description.className = 'description';
-                description.innerText = table[i].description == null ? null : table[i].description.length > 50 ? table[i].description.substr(0, 50) + '...' : table[i].description;
+                description.innerText = stack[i].description == null ? null : stack[i].description.length > 50 ? stack[i].description.substr(0, 50) + '...' : stack[i].description;
                 repo_card.appendChild(description);
 
                 const centerdiv = document.createElement('div');
                 centerdiv.className = 'centerdiv';
 
-                if (table[i].language) {
+                if (stack[i].language) {
                     // const language = document.createElement('p')
                     // language.className = 'language'
-                    // language.innerHTML = devicons[table[i].language];
+                    // language.innerHTML = devicons[stack[i].language];
 
-                    centerdiv.innerHTML += devicons[table[i].language];
+                    centerdiv.innerHTML += devicons[stack[i].language];
                     centerdiv.classList.add('language');
                 }
 
-                if (table[i].stargazers_count) {
+                if (stack[i].stargazers_count) {
                     // const stars = document.createElement('p');
                     // stars.className = 'stars';
-                    // stars.innerText += '⭐' + table[i].stargazers_count;
+                    // stars.innerText += '⭐' + stack[i].stargazers_count;
 
-                    centerdiv.innerHTML += '⭐' + table[i].stargazers_count;
+                    centerdiv.innerHTML += '⭐' + stack[i].stargazers_count;
                 }
 
-                if (table[i].forks_count) {
+                if (stack[i].forks_count) {
                     // const forks = document.createElement('p')
-                    // forks.innerHTML += devicons["Git"] + table[i].forks_count;
+                    // forks.innerHTML += devicons["Git"] + stack[i].forks_count;
 
-                    centerdiv.innerHTML += devicons["Git"] + table[i].forks_count;
+                    centerdiv.innerHTML += devicons["Git"] + stack[i].forks_count;
                     // centerdiv.appendChild(forks);
                 }
 
-                if (table[i].has_pages) {
+                if (stack[i].has_pages) {
                     const homepage = document.createElement('a');
-                    homepage.href = table[i].homepage;
-                    homepage.innerHTML = devicons["Chrome"] + table[i].name;
+                    homepage.href = stack[i].homepage;
+                    homepage.innerHTML = devicons["Chrome"] + stack[i].name;
                     // centerdiv.innerHTML += devicons["Chrome"];
                     // centerdiv.classList.add('homepage')
                     homepage.className = 'homepage';
@@ -234,20 +232,20 @@
                 repo_card.appendChild(centerdiv);
 
                 const objectCSS = new CSS3DObject(repo_card);
-                objectCSS.position.x = Math.random() * 4000 - 2000;
-                objectCSS.position.y = Math.random() * 4000 - 2000;
-                objectCSS.position.z = Math.random() * 4000 - 2000;
+                objectCSS.position.x = Math.random() * 400 - 200;
+                objectCSS.position.y = Math.random() * 400 - 200;
+                objectCSS.position.z = Math.random() * 400 - 200;
                 scene.add(objectCSS);
 
                 objects.push(objectCSS);
 
-                // table - customise below to change the positions
+                // stack - customise below to change the positions
 
                 const object = new THREE.Object3D();
-                object.position.x = (i * 140) - 130;
-                object.position.y = ([i + 3] * 180) + 990;
+                // object.position.x = (i * 140) - 130;
+                // object.position.y = ([i + 3] * 180) + 990;
 
-                targets.table.push(object);
+                targets.stack.push(object);
 
             }
 
@@ -305,9 +303,9 @@
                 // constant after minus for shifting on axis (500)
                 // multiplier (200) for deciding gap between cards
                 // modulo for no. of cards(5) in a row 
-                object.position.x = ((i % 10) * 200) - 500;
+                object.position.x = ((i % 3) * 500) - 500;
 
-                object.position.y = (- (Math.floor(i / 5) % 5) * 200) + 300;
+                object.position.y = (- (Math.floor(i / 5) % 3) * 200) + 300;
                 object.position.z = (Math.floor(i / 25)) * 1000 - 2000;
 
                 targets.grid.push(object);
@@ -327,10 +325,10 @@
             controls.maxDistance = 4000;
             controls.addEventListener('change', render);
 
-            const buttonTable = document.getElementById('table');
+            const buttonTable = document.getElementById('stack');
             buttonTable.addEventListener('click', function () {
 
-                transform(targets.table, 2000);
+                transform(targets.stack, 2000);
             });
 
             const buttonSphere = document.getElementById('sphere');
@@ -354,7 +352,7 @@
 
             });
 
-            transform(targets.table, 2000);
+            transform(targets.stack, 2000);
 
             //
 
