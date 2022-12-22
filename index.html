@@ -125,7 +125,7 @@
 
         //get url of the github page and split it to get username
         var url = window.location.href;
-        var username = url.split(".")[0];
+        var username = url.split(".")[0].split("//")[1];
         // var username = "AMIT0617";
         let response;
 
