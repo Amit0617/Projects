@@ -9,7 +9,7 @@ My Projects, Your projects, Everyone else's Projects. A projects showcase for pr
 ## How does it works?
 Basically there is one fixed pattern of the url of the deployed project. So if you would fork this repository, url of the deployed page would be `https://USERNAME.github.io/Projects`. Therefore, using some string operations username can be extracted and can be used with github api to fetch all user repositories. Then that data is used to render your project showcase!
 
-## Customisations
+## How to Customize?
 If you want some selected repositories in your projects showcase, then you can use this API `https://api.github.com/users/${username}/repos?&sort=pushed&per_page=100` to get all of your repositories upto 100 (Check docs for more). Save the response as `repos.json` file, remove those objects you don't want or reorder that according to your choice and add it into the repository. It will first check for that and only in absence of that file, it calls Github api.
 
 ## GOAL of the Project
