@@ -123,8 +123,8 @@
 
         var table = new Array();
 
-        // await fetch('https://api.github.com/users/AMIT0617/repos?&sort=pushed&per_page=100')
-        await fetch('/repos1.json')
+        await fetch( '/repos1.json' || 'https://api.github.com/users/AMIT0617/repos?&sort=pushed&per_page=100')
+        // await fetch('/repos1.json')
             .then(data => data.json())
             .then(response => {
                 for (let index = 0; index < response.length; index++) {
