@@ -210,30 +210,26 @@ a {
 }
 
 .language {
-	position: absolute;
+	position: relative;
+	display: block;
 	justify-content: center;
-	bottom: 40%;
-	margin-left: 50%;
-	margin-left: 50%;
 }
 
 .homepage {
 	position: absolute;
-	bottom: 20%;
+	top: 100%;
 }
 /* Make centerdiv of fixed size inside repo_card in the center */
 .centerdiv{
-	position: absolute;
-	font-size: 2vh;
+	font-size: 3vh;
 	top: 50%;
-	/* align-items: center; */
+	margin-top:50%;
+	vertical-align: middle;
+	align-items: center;
 	display:flex;
 	text-align: center;
 	align-content: center;
-	/* left: 30%; */
-	/* max-width: -moz-fit-content;; */
-	/* max-width: fit-content; */
-	/* display: flex; */
+	justify-content: center;
 }
 
 button {

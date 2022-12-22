@@ -127,20 +127,6 @@
         var url = window.location.href;
         var username = url.split(".")[0].split("//")[1];
         // var username = "AMIT0617";
-        let response;
-
-        // let getRepos = async() => {
-        //     response = await fetch('/repos2.json');
-
-        //     if (response.status == 404) {
-        //         throw new Error("Didn't found saved json data. Retrying...");
-        //         response = await fetch(`https://api.github.com/users/$(username)/repos?&sort=pushed&per_page=100`);
-        //     }
-
-        //     let data = await response.json();
-        //     console.log(data);
-        //     return data;
-        // }
 
         await fetch('/repos.json')
             .then(async response => {
@@ -159,11 +145,6 @@
                 for (let index = 0; index < data.length; index++) {
                     let repo = data[index];
                     table.push(repo);
-                    // table.push(repo.html_url);
-                    // table.push(repo.description == null ? null : repo.description.length > 50 ? repo.description.substr(0, 50) + "..." : repo.description);
-                    // table.push(repo.stargazers_count);
-                    // table.push(repo.watchers_count);
-                    // table.push(repo.name)
                 }
                 table.sort((a) => a.stargazers_count);
                 console.log(table);
@@ -191,14 +172,6 @@
 
             // make background scene consisting matrix of lines in three.js
             scene = new THREE.Scene();
-            // scene.background = new THREE.Color(0x000000);
-            // scene.fog = new THREE.Fog(0x000000, 250, 1400);
-            // scene.add(new THREE.AmbientLight(0x222222));
-            // 
-            // make animated lines in background
-            // const light = new THREE.DirectionalLight(0xffffff);
-            // light.position.set(1, 1, 1);
-            // scene.add(light);
 
             // table
 
@@ -207,11 +180,6 @@
                 const repo_card = document.createElement('div');
                 repo_card.className = 'repo_card';
                 repo_card.style.backgroundColor = 'rgba(255,255,255,' + (Math.random() * 0.5 + 0.25) + ')';
-
-                // const number = document.createElement('div');
-                // number.className = 'number';
-                // number.textContent = (i / 5) + 1;
-                // repo_card.appendChild(number);
 
                 const repo_name = document.createElement('a');
                 repo_name.className = 'repo_name';
@@ -225,36 +193,32 @@
                 description.innerText = table[i].description == null ? null : table[i].description.length > 50 ? table[i].description.substr(0, 50) + '...' : table[i].description;
                 repo_card.appendChild(description);
 
-                // const language = document.createElement('i');
-                // const icon = table[i].language;
-                // // let langIcon;
-                // if (icon) { langIcon = icon.toLowerCase(); }
-                // language.className = icon != null ? `devicon-${langIcon}-plain colored devicon-${langIcon[langIcon]}-original` : null;
-                // language.innerText = icon;
-                // repo_card.appendChild(language);
-
                 const centerdiv = document.createElement('div');
                 centerdiv.className = 'centerdiv';
 
                 if (table[i].language) {
-                    const language = document.createElement('p')
+                    // const language = document.createElement('p')
                     // language.className = 'language'
-                    language.innerHTML = devicons[table[i].language];
+                    // language.innerHTML = devicons[table[i].language];
+
+                    centerdiv.innerHTML += devicons[table[i].language];
                     centerdiv.classList.add('language');
-                    centerdiv.appendChild(language);
                 }
 
                 if (table[i].stargazers_count) {
-                    const stars = document.createElement('p');
-                    stars.className = 'stars';
-                    stars.innerText += '⭐' + table[i].stargazers_count;
-                    centerdiv.appendChild(stars);
+                    // const stars = document.createElement('p');
+                    // stars.className = 'stars';
+                    // stars.innerText += '⭐' + table[i].stargazers_count;
+
+                    centerdiv.innerHTML += '⭐' + table[i].stargazers_count;
                 }
 
                 if (table[i].forks_count) {
-                    const forks = document.createElement('p')
-                    forks.innerHTML += devicons["Git"] + table[i].forks_count;
-                    centerdiv.appendChild(forks);
+                    // const forks = document.createElement('p')
+                    // forks.innerHTML += devicons["Git"] + table[i].forks_count;
+
+                    centerdiv.innerHTML += devicons["Git"] + table[i].forks_count;
+                    // centerdiv.appendChild(forks);
                 }
 
                 if (table[i].has_pages) {
