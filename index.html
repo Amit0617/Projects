@@ -231,17 +231,22 @@
 
                 repo_card.appendChild(centerdiv);
 
+                // Default landing of the cards
                 const objectCSS = new CSS3DObject(repo_card);
                 objectCSS.position.x = Math.random() * 400 - 200;
                 objectCSS.position.y = Math.random() * 400 - 200;
                 objectCSS.position.z = Math.random() * 400 - 200;
                 scene.add(objectCSS);
 
+                const time = Date.now() * 0.001;
+
                 objects.push(objectCSS);
+                objectCSS.rotation.y = time * 0.5
 
                 // stack - customise below to change the positions
 
                 const object = new THREE.Object3D();
+
                 // object.position.x = (i * 140) - 130;
                 // object.position.y = ([i + 3] * 180) + 990;
 
@@ -307,6 +312,8 @@
 
                 object.position.y = (- (Math.floor(i / 5) % 3) * 200) + 300;
                 object.position.z = (Math.floor(i / 25)) * 1000 - 2000;
+
+
 
                 targets.grid.push(object);
 
@@ -433,7 +440,6 @@
                 }
 
             }
-
 
             renderer.render(scene, camera);
 
