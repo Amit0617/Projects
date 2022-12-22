@@ -135,7 +135,7 @@
                 else {
                     response = await fetch(`https://api.github.com/users/${username}/repos?&sort=pushed&per_page=100`);
                     let data = await response.json();
-                    console.log(data);
+                    // console.log(data);
                     return data;
                 }
             })
@@ -166,7 +166,6 @@
 
             camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
             camera.position.z = 500;
-
 
             // make background scene consisting matrix of lines in three.js
             scene = new THREE.Scene();
@@ -336,32 +335,38 @@
             buttonTable.addEventListener('click', function () {
 
                 transform(targets.stack, 2000);
+                play();
             });
 
             const buttonSphere = document.getElementById('sphere');
             buttonSphere.addEventListener('click', function () {
 
                 transform(targets.sphere, 2000);
-
+                play();
             });
 
             const buttonHelix = document.getElementById('helix');
             buttonHelix.addEventListener('click', function () {
 
                 transform(targets.helix, 2000);
-
+                play();
             });
 
             const buttonGrid = document.getElementById('grid');
             buttonGrid.addEventListener('click', function () {
 
                 transform(targets.grid, 2000);
-
+                play();
             });
 
             transform(targets.stack, 2000);
 
-            //
+            //play audio on click of button
+            const audio = new Audio('swoosh-6428.mp3')
+            // const audio = new Audio('mystical-wind-chimes-transition-fx-6327.mp3')
+            function play() {
+                setTimeout(() => audio.play(), 800);
+            };
 
             window.addEventListener('resize', onWindowResize);
 

@@ -1,7 +1,15 @@
 # Projects
 My Projects, Your projects, Everyone else's Projects. A projects showcase for programmers who are busy on something more priority. Fork. Deploy. Share.
 
-## GOAL
+## How to get it setup?
+1. Step 1 - Fork it
+2. Step 2 - Deploy it on Github pages
+3. Enjoy. That's it
+
+## How does it works?
+Basically there is one fixed pattern of the url of the deployed project. So if you would fork this repository, url of the deployed page would be `https://USERNAME.github.io/Projects`. Therefore, using some string operations username can be extracted and can be used with github api to fetch all user repositories. Then that data is used to render your project showcase!
+
+## GOAL of the Project
 It should be generalised and templatised completely, so that can be turned ON after forking and opting for hosting by GitHub. 
  
 ### Steps
