@@ -122,13 +122,41 @@
         }
 
         var table = new Array();
+        var username = "AMIT0617";
+        let response;
 
-        await fetch( '/repos1.json' || 'https://api.github.com/users/AMIT0617/repos?&sort=pushed&per_page=100')
+        // let getRepos = async() => {
+        //     response = await fetch('/repos2.json');
+
+        //     if (response.status == 404) {
+        //         throw new Error("Didn't found saved json data. Retrying...");
+        //         response = await fetch(`https://api.github.com/users/$(username)/repos?&sort=pushed&per_page=100`);
+        //     }
+
+        //     let data = await response.json();
+        //     console.log(data);
+        //     return data;
+        // }
+
+        await fetch('/repos2.json')
+        .then(async response => {
+            if (response.status !== 404) {
+                let data = await response.json();
+                return data;
+            }
+            else {
+                response = await fetch(`https://api.github.com/users/${username}/repos?&sort=pushed&per_page=100`);
+                let data = await response.json();
+                console.log(data);
+                return data;
+            }
+        })
         // await fetch('/repos1.json')
-            .then(data => data.json())
-            .then(response => {
-                for (let index = 0; index < response.length; index++) {
-                    let repo = response[index];
+        // .then(data => data.json())
+        // await getRepos()
+            .then(data => {
+                for (let index = 0; index < data.length; index++) {
+                    let repo = data[index];
                     table.push(repo);
                     // table.push(repo.html_url);
                     // table.push(repo.description == null ? null : repo.description.length > 50 ? repo.description.substr(0, 50) + "..." : repo.description);
@@ -139,10 +167,8 @@
                 table.sort((a) => a.stargazers_count);
                 console.log(table);
             })
+            .catch(err => console.log(err));
 
-        // await fetch('github.json')
-        // .then(data => data.json())
-        // .then(item => table.push(item));
 
         console.log(table);
 
@@ -151,20 +177,27 @@
 
         const objects = [];
         const targets = { table: [], sphere: [], helix: [], grid: [] };
-        
+        let mouseX = 0, mouseY = 0;
+
         init();
         animate();
 
         function init() {
 
             camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 10000);
-            camera.position.z = 3;
+            camera.position.z = 500;
 
+
+            // make background scene consisting matrix of lines in three.js
             scene = new THREE.Scene();
-            // scene.background = new THREE.Color(0xcccccc);
-            // scene.fog = new THREE.FogExp2(0xcccccc, 0.002);
-            const gridHelper = new THREE.GridHelper(4000, 10);
-            scene.add(gridHelper);
+            // scene.background = new THREE.Color(0x000000);
+            // scene.fog = new THREE.Fog(0x000000, 250, 1400);
+            // scene.add(new THREE.AmbientLight(0x222222));
+// 
+            // make animated lines in background
+            // const light = new THREE.DirectionalLight(0xffffff);
+            // light.position.set(1, 1, 1);
+            // scene.add(light);
 
             // table
 
@@ -210,14 +243,14 @@
                     centerdiv.appendChild(language);
                 }
 
-                if (table[i].stargazers_count){
+                if (table[i].stargazers_count) {
                     const stars = document.createElement('p');
                     stars.className = 'stars';
                     stars.innerText += '⭐' + table[i].stargazers_count;
                     centerdiv.appendChild(stars);
                 }
 
-                if(table[i].forks_count){
+                if (table[i].forks_count) {
                     const forks = document.createElement('p')
                     forks.innerHTML += devicons["Git"] + table[i].forks_count;
                     centerdiv.appendChild(forks);
@@ -247,7 +280,7 @@
 
                 const object = new THREE.Object3D();
                 object.position.x = (i * 140) - 130;
-                object.position.y = ([i+3] * 180) + 990;
+                object.position.y = ([i + 3] * 180) + 990;
 
                 targets.table.push(object);
 
@@ -399,7 +432,6 @@
 
             renderer.setSize(window.innerWidth, window.innerHeight);
 
-            render();
 
         }
 
@@ -412,10 +444,33 @@
             TWEEN.update();
 
             controls.update();
+            render();
 
         }
 
+
         function render() {
+
+            // adjust camera position with smoothness on mouse move
+            camera.position.x += (mouseX - camera.position.x) * 0.05;
+            camera.position.y += (- mouseY + 200 - camera.position.y) * 0.05;
+
+            camera.lookAt(scene.position);
+
+            const time = Date.now() * 0.0005;
+
+            for (let i = 0; i < scene.children.length; i++) {
+
+                const object = scene.children[i];
+
+                if (object.isLine) {
+
+                    object.rotation.y = time * (i % 2 ? 1 : - 1);
+
+                }
+
+            }
+
 
             renderer.render(scene, camera);
 
