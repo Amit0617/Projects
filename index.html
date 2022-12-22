@@ -122,7 +122,11 @@
         }
 
         var table = new Array();
-        var username = "AMIT0617";
+
+        //get url of the github page and split it to get username
+        var url = window.location.href;
+        var username = url.split(".")[0];
+        // var username = "AMIT0617";
         let response;
 
         // let getRepos = async() => {
@@ -138,22 +142,19 @@
         //     return data;
         // }
 
-        await fetch('/repos2.json')
-        .then(async response => {
-            if (response.status !== 404) {
-                let data = await response.json();
-                return data;
-            }
-            else {
-                response = await fetch(`https://api.github.com/users/${username}/repos?&sort=pushed&per_page=100`);
-                let data = await response.json();
-                console.log(data);
-                return data;
-            }
-        })
-        // await fetch('/repos1.json')
-        // .then(data => data.json())
-        // await getRepos()
+        await fetch('/repos.json')
+            .then(async response => {
+                if (response.status !== 404) {
+                    let data = await response.json();
+                    return data;
+                }
+                else {
+                    response = await fetch(`https://api.github.com/users/${username}/repos?&sort=pushed&per_page=100`);
+                    let data = await response.json();
+                    console.log(data);
+                    return data;
+                }
+            })
             .then(data => {
                 for (let index = 0; index < data.length; index++) {
                     let repo = data[index];
@@ -193,7 +194,7 @@
             // scene.background = new THREE.Color(0x000000);
             // scene.fog = new THREE.Fog(0x000000, 250, 1400);
             // scene.add(new THREE.AmbientLight(0x222222));
-// 
+            // 
             // make animated lines in background
             // const light = new THREE.DirectionalLight(0xffffff);
             // light.position.set(1, 1, 1);
