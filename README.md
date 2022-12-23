@@ -35,4 +35,4 @@ It should be generalised and templatised completely, so that can be turned ON af
 ~Readjust font size according to the length of string.~ Readjusting causes large no. of recursions, call for only few large ones (maybe check size or no. of characters to limit that.)
 - [ ] Add layers for sliders with adjusting options- like radius of sphere, distance between cards, their positioning, various colors.
 - [x] Offer light mode and dark mode options.
-- [ ] Sound with every shape transition would be awesome.
+- [x] Sound with every shape transition would be awesome.
