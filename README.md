@@ -36,3 +36,6 @@ It should be generalised and templatised completely, so that can be turned ON af
 - [ ] Add layers for sliders with adjusting options- like radius of sphere, distance between cards, their positioning, various colors.
 - [x] Offer light mode and dark mode options.
 - [x] Sound with every shape transition would be awesome.
+
+## How to Contribute?
+<a href="https://github.com/Amit0617/Projects/blob/main/CONTRIBUTING.md">Contributing.md</a>
